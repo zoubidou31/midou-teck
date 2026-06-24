@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — <%= config.bot.name %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <%- include('partials/nav') %>
+
+  <main class="dashboard-main">
+    <div class="dashboard-header">
+      <% if (user.avatar) { %>
+        <img src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>.webp?size=128" class="avatar" alt="avatar" />
+      <% } else { %>
+        <div class="avatar-placeholder">👤</div>
+      <% } %>
+      <div>
+        <h1>Welcome, <%= user.username %></h1>
+        <p class="muted">Manage your notifications, wishlist, and profile</p>
+      </div>
+    </div>
+
+    <div class="dashboard-grid">
+      <div class="dash-card">
+        <h3>📊 Your Stats</h3>
+        <% if (economy) { %>
+          <div class="stat-list">
+            <div class="stat-row"><span>Level</span><strong><%= economy.level %></strong></div>
+            <div class="stat-row"><span>XP</span><strong><%= economy.xp.toLocaleString() %></strong></div>
+            <div class="stat-row"><span>Balance</span><strong><%= economy.balance.toLocaleString() %> 🪙</strong></div>
+            <div class="stat-row"><span>Daily Streak</span><strong><%= economy.streak %> days 🔥</strong></div>
+          </div>
+        <% } else { %>
+          <p class="muted">Use <code>/daily</code> on Discord to start tracking.</p>
+        <% } %>
+      </div>
+
+      <div class="dash-card">
+        <h3>🔔 Notifications</h3>
+        <% if (notifications.length > 0) { %>
+          <% notifications.forEach(n => { %>
+            <div class="notif-row">
+              <span><%= n.type.replace('_', ' ') %></span>
+              <span class="badge <%= n.enabled ? 'badge-on' : 'badge-off' %>"><%= n.enabled ? 'ON' : 'OFF' %></span>
+            </div>
+          <% }) %>
+        <% } else { %>
+          <p class="muted">No notifications configured. Use <code>/notify enable</code> on Discord.</p>
+        <% } %>
+      </div>
+
+      <div class="dash-card dash-card-wide">
+        <h3>📋 Wishlist (<%= wishlist.length %> games)</h3>
+        <% if (wishlist.length > 0) { %>
+          <div class="wishlist-grid">
+            <% wishlist.slice(0, 12).forEach(item => { %>
+              <div class="wishlist-item">
+                <span class="store-badge store-<%= item.storeType.toLowerCase() %>"><%= item.storeType %></span>
+                <span><%= item.gameName %></span>
+              </div>
+            <% }) %>
+          </div>
+        <% } else { %>
+          <p class="muted">Your wishlist is empty. Add games with <code>/wishlist add</code> on Discord.</p>
+        <% } %>
+      </div>
+
+      <div class="dash-card">
+        <h3>💎 Premium</h3>
+        <% if (premium && (!premium.expiresAt || new Date(premium.expiresAt) > new Date())) { %>
+          <p class="premium-badge">✨ <%= premium.tier %></p>
+          <% if (premium.expiresAt) { %>
+            <p class="muted">Expires: <%= new Date(premium.expiresAt).toLocaleDateString() %></p>
+          <% } %>
+        <% } else { %>
+          <p>You're on the <strong>Free</strong> plan.</p>
+          <p class="muted">Premium features coming soon!</p>
+        <% } %>
+      </div>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

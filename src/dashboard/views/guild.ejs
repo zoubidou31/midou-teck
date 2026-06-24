@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= guild.name %> Settings — <%= config.bot.name %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <%- include('partials/nav') %>
+  <main class="page-main">
+    <div class="page-header">
+      <% if (guild.icon) { %><img src="<%= guild.icon %>" class="guild-icon" alt="icon" /><% } %>
+      <div>
+        <h1><%= guild.name %></h1>
+        <p class="muted">Server configuration panel</p>
+      </div>
+    </div>
+    <div class="dash-card">
+      <h3>📢 Notification Channels</h3>
+      <% if (settings) { %>
+        <div class="stat-list">
+          <div class="stat-row"><span>Steam Free Games</span><strong><%= settings.steamChannelId ? '#channel-' + settings.steamChannelId : 'Not set' %></strong></div>
+          <div class="stat-row"><span>Epic Free Games</span><strong><%= settings.epicChannelId ? '#channel-' + settings.epicChannelId : 'Not set' %></strong></div>
+          <div class="stat-row"><span>Steam Deals</span><strong><%= settings.dealsChannelId ? '#channel-' + settings.dealsChannelId : 'Not set' %></strong></div>
+          <div class="stat-row"><span>Notifications</span><strong><%= settings.notificationsEnabled ? '✅ Enabled' : '❌ Disabled' %></strong></div>
+        </div>
+        <p class="muted mt">To change channels, use the Discord commands:<br/>
+          <code>/set-steam-channel</code>, <code>/set-epic-channel</code>, <code>/set-deals-channel</code>
+        </p>
+      <% } else { %>
+        <p class="muted">No settings found. Use Discord commands to configure.</p>
+      <% } %>
+    </div>
+    <a href="/dashboard" class="btn btn-secondary">← Back to Dashboard</a>
+  </main>
+  <%- include('partials/footer') %>
+</body>
+</html>

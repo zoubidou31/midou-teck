@@ -1,0 +1,14 @@
+<nav class="navbar">
+  <a href="/" class="nav-brand">🎮 midou_Teck</a>
+  <div class="nav-links">
+    <a href="/features">Features</a>
+    <a href="/commands">Commands</a>
+    <a href="/support">Support</a>
+    <% if (user) { %>
+      <a href="/dashboard" class="btn btn-sm">Dashboard</a>
+      <a href="/auth/logout" class="btn btn-sm btn-ghost">Logout</a>
+    <% } else { %>
+      <a href="/auth/discord" class="btn btn-sm">Login</a>
+    <% } %>
+  </div>
+</nav>

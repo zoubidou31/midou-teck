@@ -1,0 +1,85 @@
+version: '3.9'
+
+services:
+  # ---- Production: PostgreSQL + Bot ----
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: midou_teck
+      POSTGRES_USER: ${POSTGRES_USER:-midou}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Postgres password required}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-midou} -d midou_teck"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - bot_network
+
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      DATABASE_PROVIDER: postgresql
+      DATABASE_URL: postgresql://${POSTGRES_USER:-midou}:${POSTGRES_PASSWORD}@postgres:5432/midou_teck
+      DISCORD_TOKEN: ${DISCORD_TOKEN:?Discord token required}
+      DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID:?Client ID required}
+      DISCORD_CLIENT_SECRET: ${DISCORD_CLIENT_SECRET}
+      DASHBOARD_URL: ${DASHBOARD_URL:-http://localhost:3000}
+      DASHBOARD_PORT: 3000
+      SESSION_SECRET: ${SESSION_SECRET:?Session secret required}
+      COOKIE_SECURE: ${COOKIE_SECURE:-true}
+      STEAM_API_KEY: ${STEAM_API_KEY}
+      RAWG_API_KEY: ${RAWG_API_KEY}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    ports:
+      - "${DASHBOARD_PORT:-3000}:3000"
+    volumes:
+      - bot_logs:/app/logs
+    networks:
+      - bot_network
+    command: sh -c "npx prisma migrate deploy && node dist/index.js"
+
+  # ---- Development: SQLite + hot reload ----
+  bot_dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    profiles: ["dev"]
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      DATABASE_PROVIDER: sqlite
+      DATABASE_URL: file:./dev.db
+      DISCORD_TOKEN: ${DISCORD_TOKEN}
+      DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID}
+      DISCORD_CLIENT_SECRET: ${DISCORD_CLIENT_SECRET}
+      DASHBOARD_URL: http://localhost:3000
+      DASHBOARD_PORT: 3000
+      SESSION_SECRET: dev-secret-change-in-prod
+      COOKIE_SECURE: "false"
+      STEAM_API_KEY: ${STEAM_API_KEY}
+      RAWG_API_KEY: ${RAWG_API_KEY}
+      LOG_LEVEL: debug
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+volumes:
+  postgres_data:
+  bot_logs:
+
+networks:
+  bot_network:
+    driver: bridge

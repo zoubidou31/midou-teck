@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Commands — <%= config.bot.name %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <%- include('partials/nav') %>
+
+  <main class="page-main">
+    <div class="page-header">
+      <h1>📖 Commands</h1>
+      <p>All available slash commands for midou_Teck</p>
+    </div>
+
+    <div class="commands-section">
+      <h2>🎮 Games</h2>
+      <div class="cmd-grid">
+        <div class="cmd-card"><code>/freegames</code><p>Browse current free Steam games with pagination and claim links.</p></div>
+        <div class="cmd-card"><code>/epicfree</code><p>View current and upcoming Epic Games giveaways.</p></div>
+        <div class="cmd-card"><code>/steamdeals [filter]</code><p>Browse Steam deals. Filter by top rated, latest, biggest discounts, or price.</p></div>
+        <div class="cmd-card"><code>/game [genre] [platform]</code><p>Get a random game recommendation. Filter by genre, platform, multiplayer, and free-only.</p></div>
+        <div class="cmd-card"><code>/wishlist add|remove|view</code><p>Manage your personal game wishlist and receive sale notifications.</p></div>
+        <div class="cmd-card"><code>/notify enable|disable|status</code><p>Configure your DM notification preferences for free games and deals.</p></div>
+      </div>
+    </div>
+
+    <div class="commands-section">
+      <h2>💰 Economy</h2>
+      <div class="cmd-grid">
+        <div class="cmd-card"><code>/balance [user]</code><p>Check coin balance and XP progress.</p></div>
+        <div class="cmd-card"><code>/work</code><p>Work a random gaming job to earn coins. 1-hour cooldown.</p></div>
+        <div class="cmd-card"><code>/daily</code><p>Claim daily reward with streak bonuses. 24-hour cooldown.</p></div>
+        <div class="cmd-card"><code>/rank [user]</code><p>View your XP rank and level progress bar.</p></div>
+        <div class="cmd-card"><code>/leaderboard</code><p>View the top 10 players ranked by XP.</p></div>
+        <div class="cmd-card"><code>/profile [user]</code><p>View a full profile including level, balance, streak, and wishlist.</p></div>
+      </div>
+    </div>
+
+    <div class="commands-section">
+      <h2>🎁 Giveaways</h2>
+      <div class="cmd-grid">
+        <div class="cmd-card"><code>/giveaway create</code><p>Start a giveaway with a prize, duration, and winner count. Requires Manage Server.</p></div>
+        <div class="cmd-card"><code>/giveaway end [id]</code><p>End a giveaway early and pick winners immediately.</p></div>
+        <div class="cmd-card"><code>/giveaway reroll [id]</code><p>Reroll winners for an ended giveaway.</p></div>
+      </div>
+    </div>
+
+    <div class="commands-section">
+      <h2>🛠️ Utility</h2>
+      <div class="cmd-grid">
+        <div class="cmd-card"><code>/ping</code><p>Check bot and API latency.</p></div>
+        <div class="cmd-card"><code>/help [category]</code><p>View all commands, optionally filtered by category.</p></div>
+        <div class="cmd-card"><code>/botinfo</code><p>View bot statistics, uptime, and version info.</p></div>
+        <div class="cmd-card"><code>/invite</code><p>Get the bot invite link and support server link.</p></div>
+        <div class="cmd-card"><code>/serverinfo</code><p>View detailed server information.</p></div>
+        <div class="cmd-card"><code>/userinfo [user]</code><p>View user account information.</p></div>
+      </div>
+    </div>
+
+    <div class="commands-section">
+      <h2>⚙️ Admin</h2>
+      <div class="cmd-grid">
+        <div class="cmd-card"><code>/set-steam-channel</code><p>Set the channel for Steam free game notifications. Requires Manage Server.</p></div>
+        <div class="cmd-card"><code>/set-epic-channel</code><p>Set the channel for Epic Games notifications. Requires Manage Server.</p></div>
+        <div class="cmd-card"><code>/set-deals-channel</code><p>Set the channel for Steam deals notifications. Requires Manage Server.</p></div>
+      </div>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

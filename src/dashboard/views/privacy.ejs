@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — <%= config.bot.name %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <%- include('partials/nav') %>
+  <main class="page-main legal">
+    <h1>Privacy Policy</h1>
+    <p class="muted">Last updated: January 2025</p>
+    <h2>Data We Collect</h2>
+    <p>midou_Teck collects the minimum data required to operate:</p>
+    <ul>
+      <li><strong>Discord User ID and Username</strong> — to associate your settings and wishlist with your account.</li>
+      <li><strong>Server (Guild) ID and Name</strong> — to store notification channel configurations per server.</li>
+      <li><strong>Wishlist entries</strong> — game names and store type you choose to add.</li>
+      <li><strong>Economy data</strong> — XP, balance, and streak data for bot features.</li>
+      <li><strong>Notification preferences</strong> — which types of alerts you have enabled.</li>
+    </ul>
+    <h2>How We Use Your Data</h2>
+    <p>All data is used exclusively to provide the bot's features. We do not sell, share, or use your data for advertising. Game data is fetched from third-party APIs (Steam, Epic Games, CheapShark, RAWG) and is not stored long-term.</p>
+    <h2>Data Retention</h2>
+    <p>Your data is retained while the bot is in your server or while you are an active user. You can request deletion of your data by contacting us on our support server.</p>
+    <h2>Third-Party Services</h2>
+    <p>We use the following third-party APIs to provide game data: Steam Web API, Epic Games Store API, CheapShark API, RAWG Game Database API. These services have their own privacy policies.</p>
+    <h2>Contact</h2>
+    <p>For privacy concerns, join our <a href="<%= config.bot.supportInvite %>">support server</a>.</p>
+  </main>
+  <%- include('partials/footer') %>
+</body>
+</html>

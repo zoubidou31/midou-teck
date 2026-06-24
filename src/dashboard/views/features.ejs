@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Features — <%= config.bot.name %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <%- include('partials/nav') %>
+  <main class="page-main">
+    <div class="page-header">
+      <h1>✨ Features</h1>
+      <p>Everything midou_Teck can do for your server</p>
+    </div>
+    <div class="features-list">
+      <div class="feature-row">
+        <div class="feature-icon-lg">🆓</div>
+        <div>
+          <h3>Free Steam Game Alerts</h3>
+          <p>Automatically checks Steam every 30 minutes and posts when games become free. Includes game art, original price, and a direct claim link.</p>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon-lg">🎮</div>
+        <div>
+          <h3>Epic Games Weekly Free Games</h3>
+          <p>Hourly checks for Epic Games giveaways. Shows both current free games and a preview of upcoming ones so your community can plan ahead.</p>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon-lg">💰</div>
+        <div>
+          <h3>Steam Deal Tracker</h3>
+          <p>Browse deals by top rating, latest additions, biggest discounts, or price range. Filter to find exactly what your community is looking for.</p>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon-lg">📋</div>
+        <div>
+          <h3>Personal Wishlist</h3>
+          <p>Users can add games to their personal wishlist. They'll receive a DM the moment a wishlisted game goes on sale or becomes free.</p>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon-lg">🎁</div>
+        <div>
+          <h3>Community Giveaways</h3>
+          <p>Admins can run giveaways with a single command. Members enter by clicking a button. Automatic winner selection, reroll support included.</p>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon-lg">⚡</div>
+        <div>
+          <h3>XP & Economy System</h3>
+          <p>Keep your community engaged with levels, XP, daily rewards, work commands, and a full leaderboard. Streaks reward loyal members.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+  <%- include('partials/footer') %>
+</body>
+</html>

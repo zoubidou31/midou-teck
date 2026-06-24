@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Service — <%= config.bot.name %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <%- include('partials/nav') %>
+  <main class="page-main legal">
+    <h1>Terms of Service</h1>
+    <p class="muted">Last updated: January 2025</p>
+    <h2>Acceptance</h2>
+    <p>By using midou_Teck, you agree to these terms. If you do not agree, please remove the bot from your server and discontinue use.</p>
+    <h2>Use of the Bot</h2>
+    <ul>
+      <li>You may not use midou_Teck to violate Discord's Terms of Service.</li>
+      <li>You may not attempt to exploit, abuse, or reverse-engineer the bot.</li>
+      <li>Server administrators are responsible for how the bot is configured in their server.</li>
+    </ul>
+    <h2>Availability</h2>
+    <p>We make no guarantees about uptime or availability. The service is provided "as is" without warranty of any kind.</p>
+    <h2>Game Data Accuracy</h2>
+    <p>Game prices and availability data is sourced from third-party APIs. We are not responsible for inaccurate pricing or availability information.</p>
+    <h2>Changes</h2>
+    <p>We reserve the right to update these terms at any time. Continued use of the bot constitutes acceptance of updated terms.</p>
+    <h2>Contact</h2>
+    <p>For questions, join our <a href="<%= config.bot.supportInvite %>">support server</a>.</p>
+  </main>
+  <%- include('partials/footer') %>
+</body>
+</html>

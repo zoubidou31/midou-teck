@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support — <%= config.bot.name %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <%- include('partials/nav') %>
+  <main class="page-main">
+    <div class="page-header">
+      <h1>💬 Support</h1>
+      <p>Need help? We've got you covered.</p>
+    </div>
+    <div class="support-grid">
+      <div class="support-card">
+        <h3>🎮 Discord Server</h3>
+        <p>Join our support server for live help, bug reports, and feature requests.</p>
+        <a href="<%= config.bot.supportInvite %>" class="btn btn-primary" target="_blank">Join Server</a>
+      </div>
+      <div class="support-card">
+        <h3>📖 Documentation</h3>
+        <p>Browse the full command reference and setup guides.</p>
+        <a href="/commands" class="btn btn-secondary">View Commands</a>
+      </div>
+    </div>
+    <div class="faq">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <h4>How do I set up free game notifications?</h4>
+        <p>Use <code>/set-steam-channel #channel</code> and <code>/set-epic-channel #channel</code> to configure where notifications are posted. You need Manage Server permission.</p>
+      </div>
+      <div class="faq-item">
+        <h4>How do I get DM notifications?</h4>
+        <p>Use <code>/notify enable</code> to enable direct message alerts for free games and wishlist deals. Make sure your DMs are open for server members.</p>
+      </div>
+      <div class="faq-item">
+        <h4>How does the wishlist work?</h4>
+        <p>Add games with <code>/wishlist add</code>. When a game on your wishlist goes on sale (50%+ off) or becomes free, you'll receive a DM notification.</p>
+      </div>
+      <div class="faq-item">
+        <h4>How often does the bot check for free games?</h4>
+        <p>Steam is checked every 30 minutes. Epic Games is checked every hour. Your server will be notified automatically when new games appear.</p>
+      </div>
+    </div>
+  </main>
+  <%- include('partials/footer') %>
+</body>
+</html>

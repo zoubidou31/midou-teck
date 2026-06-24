@@ -1,0 +1,174 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Guild {
+  id          String        @id
+  name        String
+  icon        String?
+  ownerId     String
+  memberCount Int           @default(0)
+  joinedAt    DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  settings    GuildSettings?
+  giveaways   Giveaway[]
+  premium     Premium?
+
+  @@map("guilds")
+}
+
+model GuildSettings {
+  id                String   @id @default(cuid())
+  guildId           String   @unique
+  steamChannelId    String?
+  epicChannelId     String?
+  dealsChannelId    String?
+  language          String   @default("en")
+  prefix            String   @default("/")
+  notificationsEnabled Boolean @default(true)
+  dealMinDiscount   Int      @default(50)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  guild             Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
+
+  @@map("guild_settings")
+}
+
+model User {
+  id           String         @id
+  username     String
+  discriminator String        @default("0")
+  avatar       String?
+  dmEnabled    Boolean        @default(true)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  notifications Notification[]
+  wishlist     Wishlist[]
+  premium      Premium?
+  economy      Economy?
+  inventory    Inventory[]
+  gameHistory  GameHistory[]
+
+  @@map("users")
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String
+  enabled   Boolean  @default(true)
+  filters   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, type])
+  @@map("notifications")
+}
+
+model Wishlist {
+  id        String   @id @default(cuid())
+  userId    String
+  gameId    String
+  gameName  String
+  storeType String
+  addedAt   DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, gameId, storeType])
+  @@map("wishlists")
+}
+
+model Premium {
+  id          String        @id @default(cuid())
+  userId      String?       @unique
+  guildId     String?       @unique
+  tier        String        @default("BASIC")
+  expiresAt   DateTime?
+  features    String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  user        User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  guild       Guild?        @relation(fields: [guildId], references: [id], onDelete: Cascade)
+
+  @@map("premium")
+}
+
+model Economy {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  balance     Int      @default(0)
+  xp          Int      @default(0)
+  level       Int      @default(1)
+  totalEarned Int      @default(0)
+  lastWork    DateTime?
+  lastDaily   DateTime?
+  streak      Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("economy")
+}
+
+model Inventory {
+  id        String   @id @default(cuid())
+  userId    String
+  itemId    String
+  itemName  String
+  itemType  String
+  quantity  Int      @default(1)
+  data      String?
+  acquiredAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("inventory")
+}
+
+model Giveaway {
+  id           String         @id @default(cuid())
+  guildId      String
+  channelId    String
+  messageId    String?
+  hostId       String
+  prize        String
+  winnersCount Int            @default(1)
+  endsAt       DateTime
+  ended        Boolean        @default(false)
+  winners      String?
+  participants String?
+  requirements String?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  guild        Guild          @relation(fields: [guildId], references: [id], onDelete: Cascade)
+
+  @@map("giveaways")
+}
+
+model GameHistory {
+  id        String   @id @default(cuid())
+  userId    String
+  gameId    String
+  gameName  String
+  action    String
+  storeType String
+  metadata  String?
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("game_history")
+}
+
+model CacheEntry {
+  id        String   @id
+  data      String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@map("cache_entries")
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= config.bot.name %> — Never Miss a Free Game 🎮</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <%- include('partials/nav') %>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1><span class="brand">midou_Teck</span></h1>
+      <p class="tagline">Never Miss a Free Game 🎮</p>
+      <p class="hero-desc">The ultimate Discord bot for free games, Steam deals, and Epic Games giveaways. Get notified instantly when games go free.</p>
+      <div class="hero-buttons">
+        <a href="https://discord.com/api/oauth2/authorize?client_id=<%= config.bot.clientId %>&permissions=277562453056&scope=bot%20applications.commands" class="btn btn-primary">
+          🤖 Add to Discord
+        </a>
+        <a href="/commands" class="btn btn-secondary">📖 Commands</a>
+      </div>
+      <div class="stats-row">
+        <div class="stat"><strong><%= guildCount.toLocaleString() %></strong><span>Servers</span></div>
+        <div class="stat"><strong><%= userCount.toLocaleString() %></strong><span>Users</span></div>
+        <div class="stat"><strong>24/7</strong><span>Online</span></div>
+        <div class="stat"><strong>Free</strong><span>Always</span></div>
+      </div>
+    </div>
+    <div class="hero-art">🎮</div>
+  </section>
+
+  <section class="features" id="features">
+    <h2>Everything you need</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🆓</div>
+        <h3>Free Steam Games</h3>
+        <p>Instant alerts when Steam games go free. Never miss a limited-time giveaway.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎮</div>
+        <h3>Epic Games Free</h3>
+        <p>Weekly Epic Games giveaway notifications with upcoming game previews.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💰</div>
+        <h3>Steam Deals</h3>
+        <p>Top discounts, latest deals, filtered by genre, price, or discount percentage.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📋</div>
+        <h3>Wishlist Alerts</h3>
+        <p>Add games to your wishlist. Get notified the moment they go on sale.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎁</div>
+        <h3>Giveaways</h3>
+        <p>Host community giveaways with one command. Automatic winner selection.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⭐</div>
+        <h3>XP & Economy</h3>
+        <p>Level up, earn coins, and compete on the leaderboard with your community.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>Ready to never miss a free game?</h2>
+    <a href="https://discord.com/api/oauth2/authorize?client_id=<%= config.bot.clientId %>&permissions=277562453056&scope=bot%20applications.commands" class="btn btn-primary btn-large">
+      Add to Your Server — It's Free
+    </a>
+  </section>
+
+  <%- include('partials/footer') %>
+</body>
+</html>
