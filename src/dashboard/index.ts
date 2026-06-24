@@ -115,6 +115,11 @@ export function startDashboard(client: Client): void {
   app.set('view engine', 'ejs');
   app.set('views', path.join(__dirname, 'views'));
 
+  // Health check endpoint (top-level for platform healthchecks)
+  app.get('/health', (_req, res) => {
+    res.json({ success: true, status: 'ok', timestamp: new Date().toISOString() });
+  });
+
   // Make client available to routes
   app.locals.discordClient = client;
 
@@ -134,7 +139,8 @@ export function startDashboard(client: Client): void {
     res.status(500).render('error', { code: 500, message: 'Internal server error', config });
   });
 
-  app.listen(config.dashboard.port, () => {
+  const port = parseInt(process.env.PORT || '', 10) || config.dashboard.port;
+  app.listen(port, () => {
     logger.info(`🌐 Dashboard running at ${config.dashboard.url}`);
   });
 }
